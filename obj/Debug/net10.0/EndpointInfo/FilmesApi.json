@@ -1,0 +1,157 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "FilmesApi",
+    "version": "1.0"
+  },
+  "paths": {
+    "/Filme": {
+      "post": {
+        "tags": [
+          "Filme"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Filme"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Filme"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Filme"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Filme"
+        ],
+        "parameters": [
+          {
+            "name": "skip",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "take",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Filme"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Filme"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Filme"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Filme/{id}": {
+      "get": {
+        "tags": [
+          "Filme"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Filme": {
+        "required": [
+          "duracao",
+          "genero",
+          "titulo"
+        ],
+        "type": "object",
+        "properties": {
+          "titulo": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "genero": {
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          },
+          "duracao": {
+            "maximum": 600,
+            "minimum": 70,
+            "type": "integer",
+            "format": "int32"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Filme"
+    }
+  ]
+}
