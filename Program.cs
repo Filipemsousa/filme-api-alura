@@ -3,11 +3,13 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = builder.Configuration.GetConnectionString("FilmeConnection");
+var connectionString = builder.Configuration.GetConnectionString("FilmeConnection")
+    ?? throw new InvalidOperationException("Connection string 'FilmeConnection' not found.");
 
-builder.Services.AddDbContext<FilmeContext>(opts =>
-opts.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+builder.Services.AddDbContext<FilmeContext>(options =>
+    options.UseMySQL(connectionString));   
 
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 // Add services to the container.
 
 builder.Services.AddControllers();
